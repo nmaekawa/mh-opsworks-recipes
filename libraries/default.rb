@@ -31,6 +31,10 @@ module MhOpsworksRecipes
       node['opsworks']['instance']['hostname'].match(/^db-master/)
     end
 
+    def get_db_seed_file
+      node.fetch(:db_seed_file, 'dce-config/docs/scripts/ddl/mysql5.sql')
+    end
+
     def get_deploy_action
       valid_actions = %i|deploy force_deploy rollback|
       requested_action = node.fetch(:deploy_action, :deploy).to_sym
