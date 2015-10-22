@@ -27,19 +27,19 @@ module MhOpsworksRecipes
       end
     end
 
+    def testing_cluster?
+      ['development', 'test'].include?(node[:cluster_env])
+    end
+
     def database_node?
       node['opsworks']['instance']['hostname'].match(/^db-master/)
     end
 
-    def is_database_node?
-      node['opsworks']['instance']['hostname'].match(/^db-master/)
-    end
-
-    def is_engage_node?
+    def engage_node?
       node['opsworks']['instance']['hostname'].match(/^engage/)
     end
 
-    def is_admin_node?
+    def admin_node?
       node['opsworks']['instance']['hostname'].match(/^admin/)
     end
 
