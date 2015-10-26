@@ -2,8 +2,8 @@
 # Recipe:: populate-maven-cache
 
 include_recipe "awscli::default"
-
-bucket_name = node.fetch(:shared_asset_bucket_name, 'mh-opsworks-shared-assets')
+::Chef::Recipe.send(:include, MhOpsworksRecipes::RecipeHelpers)
+bucket_name = get_shared_asset_bucket_name
 
 execute 'download and unpack maven cache' do
   command %Q|cd /root && /bin/rm -Rf .m2/ && aws s3 cp s3://#{bucket_name}/maven_cache.tgz . && /bin/tar xvfz maven_cache.tgz && rm maven_cache.tgz|

@@ -27,6 +27,14 @@ module MhOpsworksRecipes
       end
     end
 
+    def get_shared_asset_bucket_name
+      node.fetch(:shared_asset_bucket_name, 'mh-opsworks-shared-assets')
+    end
+
+    def get_seed_file
+      node.fetch(:cluster_seed_file, 'cluster_seed.tgz')
+    end
+
     def testing_cluster?
       ['development', 'test'].include?(node[:cluster_env])
     end
