@@ -113,17 +113,20 @@ module MhOpsworksRecipes
       # node comes online.
 
       cloudfront_url = get_cloudfront_url
+      base_media_download_url = ''
+
       if cloudfront_url && (! cloudfront_url.empty?)
         Chef::Log.info "Cloudfront url: #{cloudfront_url}"
-        %Q|https://#{cloudfront_url}|
+        base_media_download_url = %Q|https://#{cloudfront_url}|
       elsif using_asset_server?
         Chef::Log.info "asset server url: #{get_public_asset_server_hostname}"
-        %Q|http://#{get_public_asset_server_hostname}/static|
+        base_media_download_url = %Q|http://#{get_public_asset_server_hostname}/static|
       else
         Chef::Log.info "engage server: #{engage_hostname}"
         protocol = (using_ssl_for_engage?) ? 'https://' : 'http://'
-        %Q|#{protocol}#{engage_hostname}/static|
+        base_media_download_url = %Q|#{protocol}#{engage_hostname}/static|
       end
+      base_media_download_url
     end
 
     def get_public_asset_server_hostname
