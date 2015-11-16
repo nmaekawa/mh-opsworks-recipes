@@ -113,7 +113,7 @@ module MhOpsworksRecipes
       # node comes online.
 
       cloudfront_url = get_cloudfront_url
-      if ! cloudfront_url.empty?
+      if cloudfront_url && (! cloudfront_url.empty?)
         Chef::Log.info "Cloudfront url: #{cloudfront_url}"
         %Q|https://#{cloudfront_url}|
       elsif using_asset_server?
