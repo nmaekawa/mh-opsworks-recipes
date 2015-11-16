@@ -11,8 +11,6 @@ storage_info = get_storage_info
 shared_storage_root = get_shared_storage_root
 rest_auth_info = get_rest_auth_info
 admin_user_info = get_admin_user_info
-cloudfront_url = get_cloudfront_url
-using_ssl_for_engage = node[:ssl]
 
 capture_agent_query_url = node.fetch(
   :capture_agent_query_url, 'http://example.com'
@@ -34,8 +32,7 @@ git_data = node[:deploy][:matterhorn][:scm]
 public_engage_hostname = get_public_engage_hostname
 public_admin_hostname = get_public_admin_hostname_on_admin
 private_hostname = node[:opsworks][:instance][:private_dns_name]
-using_asset_server = using_asset_server?
-asset_server_hostname = get_public_asset_server_hostname
+base_media_download_url = get_base_media_download_url(public_engage_hostname)
 
 database_connection = node[:deploy][:matterhorn][:database]
 
@@ -101,13 +98,9 @@ deploy_revision matterhorn_repo_root do
         rest_auth: rest_auth_info,
         admin_auth: admin_user_info,
         database: database_connection,
-        engage_hostname: public_engage_hostname,
-        using_asset_server: using_asset_server,
-        asset_server_hostname: asset_server_hostname,
-        cloudfront_url: cloudfront_url,
+        base_media_download_url: base_media_download_url,
         capture_agent_monitor_url: capture_agent_monitor_url,
         live_streaming_url: live_streaming_url,
-        using_ssl_for_engage: using_ssl_for_engage,
       })
     end
   end

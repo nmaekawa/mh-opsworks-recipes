@@ -102,6 +102,27 @@ module MhOpsworksRecipes
       node[:opsworks][:layers][:asset_server] && node[:opsworks][:layers][:asset_server][:instances].any?
     end
 
+    def using_ssl_for_engage?
+      node[:ssl]
+    end
+
+    def get_base_media_download_url(engage_hostname)
+      # engage_hostname is passed in because we don't have the engage instance
+      # chef attributes when we're deploying the engage instance. The chef
+      # attributes don't make it into the shared chef environment until the
+      # node comes online.
+
+      cloudfront_url = get_cloudfront_url
+      if cloudfront_url
+        %Q|https://#{cloudfront_url}|
+      elsif using_asset_server?
+        %Q|http://#{get_public_asset_server_hostname}/static|
+      else
+        protocol = (using_ssl_for_engage?) ? 'https://' : 'http://'
+        %Q|#{protocol}#{engage_hostname}/static|
+      end
+    end
+
     def get_public_asset_server_hostname
       if using_asset_server?
         (private_asset_server_hostname, asset_server_attributes) = node[:opsworks][:layers][:asset_server][:instances].first
