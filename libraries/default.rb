@@ -1,3 +1,4 @@
+require 'uri'
 module MhOpsworksRecipes
   module RecipeHelpers
 
@@ -104,6 +105,11 @@ module MhOpsworksRecipes
 
     def using_ssl_for_engage?
       node[:ssl]
+    end
+
+    def get_base_media_download_domain(engage_hostname)
+      uri = URI(get_base_media_download_url(engage_hostname))
+      uri.host
     end
 
     def get_base_media_download_url(engage_hostname)
