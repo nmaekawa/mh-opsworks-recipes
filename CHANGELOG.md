@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## TO BE RELEASED
+
+* *REQUIRES MANUAL CHEF RECIPE RUNS*: Use maven3 instead of maven2, prepares us
+  for matterhorn 1.6.x
+    # Right before the deploy. . .
+    ./bin/rake stack:commands:update_chef_recipes stack:commands:execute_recipes_on_layers layers="Admin, Workers, Engage" recipes="mh-opsworks-recipes::install-mh-base-packages"
+
 ## 1.0.7 - 1/21/2016
 
 * Clean up s3 distribution configuration. Remove asset server hooks.
