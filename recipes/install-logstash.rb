@@ -5,23 +5,23 @@
 
 stack_name = node[:opsworks][:stack][:name]
 
-logstash_attributes = {
+elk_attributes = {
   enabled: true,
   tcp_port: '5000',
   logstash_major_version: '2.1',
   logstash_version: '1:2.1.1-1',
   stdout_output: true,
   elasticsearch_index_prefix: "dce-#{stack_name}"
-}.merge(node.fetch(:logstash, { enabled: false }))
+}.merge(node.fetch(:elk, { enabled: false }))
 
-if logstash_attributes[:enabled] 
+if elk_attributes[:enabled] 
 
-  logstash_major_version = logstash_attributes[:logstash_major_version]
-  logstash_version = logstash_attributes[:logstash_version]
-  tcp_port = logstash_attributes[:tcp_port]
-  stdout_output = logstash_attributes[:stdout_output]
-  elasticsearch_host = logstash_attributes.fetch(:elasticsearch_host, nil)
-  elasticsearch_index_prefix = logstash_attributes[:elasticsearch_index_prefix]
+  logstash_major_version = elk_attributes[:logstash_major_version]
+  logstash_version = elk_attributes[:logstash_version]
+  tcp_port = elk_attributes[:tcp_port]
+  stdout_output = elk_attributes[:stdout_output]
+  elasticsearch_host = elk_attributes.fetch(:elasticsearch_host, nil)
+  elasticsearch_index_prefix = elk_attributes[:elasticsearch_index_prefix]
 
   apt_repository 'logstash' do
     uri "http://packages.elasticsearch.org/logstash/#{logstash_major_version}/debian"
