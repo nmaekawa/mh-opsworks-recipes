@@ -36,7 +36,7 @@ if elk_attributes[:enabled]
 
   if elk_attributes[:install_kopf]
     execute "install kopf plugin" do
-      not_if { Dir.exist?("/usr/share/elasticsearch/plugins/kopf") }
+      not_if { ::Dir.exist?("/usr/share/elasticsearch/plugins/kopf") }
       command '/usr/share/elasticsearch/bin/plugin install lmenezes/elasticsearch-kopf/2.0'
       timeout 30
       retries 5
