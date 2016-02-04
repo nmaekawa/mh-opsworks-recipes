@@ -11,6 +11,7 @@ elk_attributes = {
   logstash_major_version: '2.1',
   logstash_version: '1:2.1.1-1',
   stdout_output: true,
+  elasticsearch_host: 'elasticsearch1',
   elasticsearch_index_prefix: "dce-#{stack_name}"
 }.merge(node.fetch(:elk, { enabled: false }))
 
@@ -20,7 +21,7 @@ if elk_attributes[:enabled]
   logstash_version = elk_attributes[:logstash_version]
   tcp_port = elk_attributes[:tcp_port]
   stdout_output = elk_attributes[:stdout_output]
-  elasticsearch_host = elk_attributes.fetch(:elasticsearch_host, nil)
+  elasticsearch_host = elk_attributes[:elasticsearch_host]
   elasticsearch_index_prefix = elk_attributes[:elasticsearch_index_prefix]
 
   apt_repository 'logstash' do

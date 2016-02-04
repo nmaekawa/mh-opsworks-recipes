@@ -8,7 +8,8 @@ stack_name = node[:opsworks][:stack][:name]
 elk_attributes = {
   enabled: true,
   kibana_version: '4.4.0',
-  kibana_checksum: '82fa06e11942e13bba518655c1d34752ca259bab'
+  kibana_checksum: '82fa06e11942e13bba518655c1d34752ca259bab',
+  elasticsearch_host: 'elasticsearch1'
 }.merge(node.fetch(:elk, { enabled: false }))
 
 if elk_attributes[:enabled] 
@@ -16,6 +17,7 @@ if elk_attributes[:enabled]
   kibana_version = elk_attributes[:kibana_version]
   kibana_checksum = elk_attributes[:kibana_checksum]
   dl_path = "#{::Chef::Config[:file_cache_path]}/kibana.tar.gz" 
+  elasticsearch_host = elk_attributes[:elasticsearch_host]
 
   group 'kibana' do
     append true
@@ -60,6 +62,7 @@ if elk_attributes[:enabled]
   template '/opt/kibana/config/kibana.yml' do
     source 'kibana.yml.erb'
     variables({
+      elasticsearch_host: elasticsearch_host
     })
     notifies :restart, "service[kibana]"
   end
