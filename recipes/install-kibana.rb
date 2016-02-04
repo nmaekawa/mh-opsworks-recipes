@@ -6,13 +6,12 @@
 stack_name = node[:opsworks][:stack][:name]
 
 elk_attributes = {
-  enabled: true,
   kibana_version: '4.4.0',
   kibana_checksum: '82fa06e11942e13bba518655c1d34752ca259bab',
   elasticsearch_host: 'elasticsearch1'
-}.merge(node.fetch(:elk, { enabled: false }))
+}.merge(node.fetch(:elk, {}))
 
-if elk_attributes[:enabled] 
+if elk_attributes.empty?
 
   kibana_version = elk_attributes[:kibana_version]
   kibana_checksum = elk_attributes[:kibana_checksum]

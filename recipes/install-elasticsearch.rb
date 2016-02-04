@@ -6,14 +6,13 @@
 stack_name = node[:opsworks][:stack][:name]
 
 elk_attributes = {
-  enabled: true,
   es_major_version: '2.x',
   es_version: '2.2.0',
   es_cluster_name: stack_name,
   install_kopf: true
-}.merge(node.fetch(:elk, { enabled: false }))
+}.merge(node.fetch(:elk, {}))
 
-if elk_attributes[:enabled] 
+if !elk_attributes.empty?
 
   es_major_version = elk_attributes[:es_major_version]
   es_version = elk_attributes[:es_version]

@@ -6,16 +6,15 @@
 stack_name = node[:opsworks][:stack][:name]
 
 elk_attributes = {
-  enabled: true,
   tcp_port: '5000',
   logstash_major_version: '2.1',
   logstash_version: '1:2.1.1-1',
   stdout_output: true,
   elasticsearch_host: 'elasticsearch1',
   elasticsearch_index_prefix: "dce-#{stack_name}"
-}.merge(node.fetch(:elk, { enabled: false }))
+}.merge(node.fetch(:elk, {))
 
-if elk_attributes[:enabled] 
+if !elk_attributes.empty?
 
   logstash_major_version = elk_attributes[:logstash_major_version]
   logstash_version = elk_attributes[:logstash_version]
