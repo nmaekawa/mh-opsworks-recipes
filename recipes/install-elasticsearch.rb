@@ -18,6 +18,7 @@ if elk_attributes[:enabled]
   es_major_version = elk_attributes[:es_major_version]
   es_version = elk_attributes[:es_version]
   es_cluster_name = elk_attributes[:es_cluster_name]
+  index_template_path = "#{::Chef::Config[:file_cache_path]}/index-template.json" 
 
   apt_repository 'elasticsearch' do
     uri "http://packages.elasticsearch.org/elasticsearch/#{es_major_version}/debian"
@@ -40,7 +41,7 @@ if elk_attributes[:enabled]
       command '/usr/share/elasticsearch/bin/plugin install lmenezes/elasticsearch-kopf/2.0'
       timeout 30
       retries 5
-      retry_delay 15
+      retry_delay 10
     end
   end
 
@@ -51,4 +52,18 @@ if elk_attributes[:enabled]
     })
     notifies :restart, "service[elasticsearch]"
   end
+  
+  cookbook_file "index-template.json" do
+    path index_template_path
+    source "index-template.json"
+  end.run_action(:create)
+
+  http_request "put index template" do
+    url 'http://localhost:9200/_template/dce'
+    message ::File.read(index_template_path)
+    action :put
+    retries 5
+    retry_delay 10
+  end
+
 end
