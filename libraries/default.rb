@@ -381,6 +381,23 @@ module MhOpsworksRecipes
     )
   end
 
+  def get_ca_app_info
+    node.fetch(
+      :ca_app, {
+        ca_stats_user: 'user',
+        ca_stats_passwd: 'passwd',
+        ca_stats_json_url: 'http://ca-status.dceapp.net/ca_stats/ca_stats.json',
+        redunlive_admin_passwd: 'passwd',
+        redunlive_log_level: 'DEBUG',
+        epipearl_user: 'admin',
+        epipearl_passwd: 'passwd',
+        testing: 'false',
+        flask_secret_key: 'super_secret_really',
+        debug: 'true'
+      }
+    )
+  end
+
   module DeployHelpers
     def files_for(node_profile)
       files = {
