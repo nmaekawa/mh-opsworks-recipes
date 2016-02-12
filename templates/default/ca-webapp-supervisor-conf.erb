@@ -1,0 +1,7 @@
+[program:<%= @ca_webapp %>]
+command = /home/web/sites/<%= @ca_webapp %>/gunicorn_start.sh
+directory = /home/web/sites/<%= @ca_webapp %>
+user = web
+stdout_logfile = /home/web/logs/<%= @ca_webapp %>_gunicorn_stdout.log
+stderr_logfile = /home/web/logs/<%= @ca_webapp %>_gunicorn_stderr.log
+redirect_stderr = True
