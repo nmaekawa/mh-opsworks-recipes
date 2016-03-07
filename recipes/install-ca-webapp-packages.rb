@@ -8,6 +8,8 @@ include_recipe "mh-opsworks-recipes::update-package-repo"
 python-virtualenv
 python-pip
 supervisor
+libpq-dev
+libffi-dev
 nginx|.each do |package_name|
   install_package(package_name)
 end

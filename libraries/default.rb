@@ -231,19 +231,21 @@ module MhOpsworksRecipes
     end
   end
 
-  def get_ca_app_info
+  def get_ca_webapp_info
     node.fetch(
-      :ca_app, {
+      :ca_webapp, {
         ca_stats_user: 'user',
         ca_stats_passwd: 'passwd',
         ca_stats_json_url: 'http://ca-status.dceapp.net/ca_stats/ca_stats.json',
-        redunlive_admin_passwd: 'passwd',
-        redunlive_log_level: 'DEBUG',
         epipearl_user: 'admin',
         epipearl_passwd: 'passwd',
-        testing: 'false',
-        flask_secret_key: 'super_secret_really',
-        debug: 'true'
+        ldap_host: 'dev-ldap1.dce.harvard.edu',
+        ldap_base_search: 'dc=dce,dc=harvard,dc=edu',
+        ldap_bind_dn: 'cn=user,dc=dce,dc=harvard,dc=edu',
+        ldap_bind_passwd: 'passwd',
+        cadash_secret_key: 'super_secret_really',
+        log_config: 'logging.yaml',
+        memcached_port: '8008'
       }
     )
   end
