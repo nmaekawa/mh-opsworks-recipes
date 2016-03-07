@@ -6,8 +6,8 @@
 ca_webapp_info = get_ca_webapp_info
 
 git "get cadash python webapp" do
-  repository "https://gitub.com/nmaekawa/cadash.git"
-  revision master
+  repository ca_webapp_info.fetch(:git_repo, "https://gitub.com/nmaekawa/cadash.git")
+  revision ca_webapp_info.fetch(:revision, "master")
   destination '/home/web/sites/cadash'
   user 'web'
 end
