@@ -244,7 +244,9 @@ module MhOpsworksRecipes
           ldap_bind_passwd: 'passwd',
           cadash_secret_key: 'super_secret_really',
           log_config: 'logging.yaml',
-          memcached_port: '8008'
+          memcached_port: '8008',
+          webapp_git_repo: 'https://github.com/harvard-dce/mh-opsworks',
+          webapp_git_revision: 'master'
         }
       )
     end
