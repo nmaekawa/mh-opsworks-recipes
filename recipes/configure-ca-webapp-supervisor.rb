@@ -12,4 +12,4 @@ template %Q|/etc/supervisor/conf.d/cadash.conf| do
   })
 end
 
-command %Q|supervisorctl reread && supervisorctl update && supervisorctl start cadash|
+execute %Q|supervisorctl reread && supervisorctl update && supervisorctl start cadash|
