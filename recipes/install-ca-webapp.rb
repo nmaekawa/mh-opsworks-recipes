@@ -36,10 +36,10 @@ end
 #  user 'web'
 #end
 
-execute %Q|cd /home/web/sites/cadash && sudo -u web virtualenv venv|
+execute %Q|sudo -u web virtualenv /home/web/sites/cadash/venv|
 
 bash 'install webapp dependencies' do
-  code 'cd /home/web/sites/cadash && source venv/bin/activate && pip install -r requirements.txt'
+  code 'source /home/web/sites/cadash/venv/bin/activate && pip install -r /home/web/sites/cadash/requirements.txt'
   user 'web'
 end
 
