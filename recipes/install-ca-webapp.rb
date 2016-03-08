@@ -24,7 +24,7 @@ ca_webapp_info = node.fetch(
 
 git "get cadash python webapp" do
   repository ca_webapp_info.fetch(:webapp_git_repo)
-  revision ca_webapp_info.fetch(:webap_git_revision)
+  revision ca_webapp_info.fetch(:webapp_git_revision)
   destination '/home/web/sites/cadash'
   user 'web'
 end
