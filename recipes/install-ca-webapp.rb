@@ -31,10 +31,12 @@ export CADASH_SECRET="#{ca_webapp_info[:cadash_secret]}"
   mode '600'
 end
 
-bash 'create virtualenv' do
-  code 'cd /home/web/sites/cadash && /usr/local/bin/virtualenv venv'
-  user 'web'
-end
+#bash 'create virtualenv' do
+#  code 'cd /home/web/sites/cadash && /usr/local/bin/virtualenv venv'
+#  user 'web'
+#end
+
+execute %Q|cd /home/web/sites/cadash && sudo -u web /usr/local/bin/virtualenv venv|
 
 bash 'install webapp dependencies' do
   code 'cd /home/web/sites/cadash && source venv/bin/activate && pip install -r requirements.txt'
