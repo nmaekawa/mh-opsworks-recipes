@@ -3,11 +3,28 @@
 
 ::Chef::Recipe.send(:include, MhOpsworksRecipes::RecipeHelpers)
 
-ca_webapp_info = get_ca_webapp_info
+ca_webapp_info = node.fetch(
+  :ca_webapp, {
+    ca_stats_user: 'user',
+    ca_stats_passwd: 'passwd',
+    ca_stats_json_url: 'http://ca-status.dceapp.net/ca_stats/ca_stats.json',
+    epipearl_user: 'admin',
+    epipearl_passwd: 'passwd',
+    ldap_host: 'dev-ldap1.dce.harvard.edu',
+    ldap_base_search: 'dc=dce,dc=harvard,dc=edu',
+    ldap_bind_dn: 'cn=user,dc=dce,dc=harvard,dc=edu',
+    ldap_bind_passwd: 'passwd',
+    cadash_secret_key: 'super_secret_really',
+    log_config: 'logging.yaml',
+    memcached_port: '8008',
+    webapp_git_repo: 'https://github.com/harvard-dce/webapp',
+    webapp_git_revision: 'master'
+  }
+)
 
 git "get cadash python webapp" do
-  repository ca_webapp_info.fetch(:webapp_git_repo, "https://github.com/nmaekawa/cadash")
-  revision ca_webapp_info.fetch(:webap_git_revision, "master")
+  repository ca_webapp_info.fetch(:webapp_git_repo)
+  revision ca_webapp_info.fetch(:webap_git_revision)
   destination '/home/web/sites/cadash'
   user 'web'
 end
@@ -39,6 +56,7 @@ end
 execute %Q|sudo -H -u web virtualenv /home/web/sites/cadash/venv|
 
 execute %Q|sudo -H -u web /home/web/sites/cadash/venv/bin/pip install -r /home/web/sites/cadash/requirements.txt|
+
 #bash 'install webapp dependencies' do
 #  code 'sudo -H source /home/web/sites/cadash/venv/bin/activate && /home/web/sites/cadash/venv/bin/pip install -r /home/web/sites/cadash/requirements.txt'
 #  user 'web'
