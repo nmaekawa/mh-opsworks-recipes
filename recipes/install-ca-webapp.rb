@@ -32,7 +32,7 @@ export CADASH_SECRET="#{ca_webapp_info[:cadash_secret]}"
 end
 
 bash 'create virtualenv' do
-  code 'cd /home/web/sites/cadash && virtualenv venv'
+  code 'cd /home/web/sites/cadash && /usr/local/bin/virtualenv venv'
   user 'web'
 end
 
