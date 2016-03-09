@@ -26,7 +26,7 @@ export LDAP_BASE_SEARCH="#{ca_webapp_info[:ldap_base_search]}"
 export LDAP_BIND_DN="#{ca_webapp_info[:ldap_bind_dn]}"
 export LDAP_BIND_PASSWD="#{ca_webapp_info[:ldap_bind_passwd]}"
 export LOG_CONFIG="#{ca_webapp_info[:log_config]}"
-export CADASH_SECRET="#{ca_webapp_info[:cadash_secret]}"
+export CADASH_SECRET="#{ca_webapp_info[:webapp_secret_key]}"
 |
   mode '600'
 end
