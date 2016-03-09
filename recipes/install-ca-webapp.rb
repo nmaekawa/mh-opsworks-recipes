@@ -34,6 +34,7 @@ end
 execute 'create virtualenv' do
   command '/usr/bin/virtualenv /home/web/sites/cadash/venv'
   user 'web'
+  creates '/home/web/sites/cadash/venv/bin/activate'
 end
 
 #execute %Q|sudo -H -u web virtualenv /home/web/sites/cadash/venv|
