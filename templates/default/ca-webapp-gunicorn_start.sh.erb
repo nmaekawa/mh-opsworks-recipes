@@ -9,7 +9,7 @@ NUM_WORKERS=3
 echo "starting ${NAME}"
 
 # activate virtualenv
-cd ${VENVDIR}
+source ${VENVDIR}/bin/activate
 
 export PYTHONPATH=${FLASKIDR}:${PYTHONPATH}
 
