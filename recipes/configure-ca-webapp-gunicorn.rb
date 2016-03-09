@@ -13,6 +13,7 @@ template '/home/web/sites/cadash/gunicorn_start.sh' do
   source 'ca-webapp-gunicorn_start.sh.erb'
   owner 'web'
   group 'web'
+  mode '775'
 end
 
 directory '/home/web/sock' do
