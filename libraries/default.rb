@@ -231,7 +231,6 @@ module MhOpsworksRecipes
     end
   end
 
-
   module DeployHelpers
     def files_for(node_profile)
       files = {
