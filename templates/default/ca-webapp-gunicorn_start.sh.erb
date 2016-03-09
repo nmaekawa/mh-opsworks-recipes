@@ -24,7 +24,7 @@ test -d ${RUNDIR} || mkdir -p ${RUNDIR}
 exec gunicorn ${NAME}.app:create_app\(\) \
     --name ${NAME} \
     --workers ${NUM_WORKERS} \
-    --user=${user} --group=${GROUP} \
+    --user=${USER} --group=${GROUP} \
     --log-level=debug \
     --log-file=- \
     --bind=unix:${SOCKFILE}
