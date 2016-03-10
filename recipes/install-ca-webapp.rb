@@ -46,3 +46,10 @@ execute 'install webapp dependencies' do
   user 'web'
 end
 
+cookbook_file "ca-webapp-logrotate.conf" do
+  path "/etc/logrotate.d/cadash"
+  owner "root"
+  group "root"
+  mode "644"
+end
+

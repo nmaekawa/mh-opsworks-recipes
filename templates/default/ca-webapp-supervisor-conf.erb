@@ -2,6 +2,13 @@
 command = /home/web/sites/<%= @ca_webapp %>/gunicorn_start.sh
 directory = /home/web/sites/<%= @ca_webapp %>
 user = web
+redirect_stderr = True
+
 stdout_logfile = /home/web/logs/<%= @ca_webapp %>_gunicorn_stdout.log
 stderr_logfile = /home/web/logs/<%= @ca_webapp %>_gunicorn_stderr.log
-redirect_stderr = True
+stdout_logfile_maxbytes = 0
+stderr_logfile_maxbytes = 0
+stdout_logfile_backups = 0
+stderr_logfile_backups = 0
+
+
