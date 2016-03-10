@@ -4,15 +4,16 @@
 ::Chef::Recipe.send(:include, MhOpsworksRecipes::RecipeHelpers)
 
 ca_webapp_info = node.fetch(:ca_webapp, {})
+app_name = ca_webapp_info.fetch(:ca_webapp_name, 'webapp')
 
-git "get cadash python webapp" do
+git "git clone webapp #{app_name}" do
   repository ca_webapp_info.fetch(:webapp_git_repo, 'https://github.com/harvard-dce/webapp')
   revision ca_webapp_info.fetch(:webapp_git_revision, 'master')
-  destination '/home/web/sites/cadash'
+  destination '/home/web/sites/#{app_name}'
   user 'web'
 end
 
-file '/home/web/sites/cadash/cadash.env' do
+file '/home/web/sites/#{app_name}/#{app_name}.env' do
   owner 'web'
   group 'web'
   content %Q|
@@ -26,28 +27,24 @@ export LDAP_BASE_SEARCH="#{ca_webapp_info[:ldap_base_search]}"
 export LDAP_BIND_DN="#{ca_webapp_info[:ldap_bind_dn]}"
 export LDAP_BIND_PASSWD="#{ca_webapp_info[:ldap_bind_passwd]}"
 export LOG_CONFIG="#{ca_webapp_info[:log_config]}"
-export CADASH_SECRET="#{ca_webapp_info[:webapp_secret_key]}"
+export FLASK_SECRET="#{ca_webapp_info[:webapp_secret_key]}"
 |
   mode '600'
 end
 
 execute 'create virtualenv' do
-  command '/usr/bin/virtualenv /home/web/sites/cadash/venv'
+  command '/usr/bin/virtualenv /home/web/sites/#{app_name}/venv'
   user 'web'
-  creates '/home/web/sites/cadash/venv/bin/activate'
+  creates '/home/web/sites/#{app_name}/venv/bin/activate'
 end
 
-#execute %Q|sudo -H -u web virtualenv /home/web/sites/cadash/venv|
-
-#execute %Q|sudo -H -u web /home/web/sites/cadash/venv/bin/pip install -r /home/web/sites/cadash/requirements.txt|
-
 execute 'install webapp dependencies' do
-  command 'source /home/web/sites/cadash/venv/bin/activate && pip install -r /home/web/sites/cadash/requirements.txt'
+  command 'source /home/web/sites/#{app_name}/venv/bin/activate && pip install -r /home/web/sites/#{app_name}/requirements.txt'
   user 'web'
 end
 
 cookbook_file "ca-webapp-logrotate.conf" do
-  path "/etc/logrotate.d/cadash"
+  path "/etc/logrotate.d/#{app_name}"
   owner "root"
   group "root"
   mode "644"
