@@ -4,9 +4,10 @@
 ::Chef::Recipe.send(:include, MhOpsworksRecipes::RecipeHelpers)
 
 
-bash 'install gunicorn' do
-  code 'source /home/web/sites/cadash/venv/bin/activate && pip install gunicorn'
+execute 'install gunicorn' do
+  command 'source /home/web/sites/cadash/venv/bin/activate && pip install gunicorn'
   user 'web'
+  creates '/home/web/sites/cadash/venv/bin/gunicorn'
 end
 
 template '/home/web/sites/cadash/gunicorn_start.sh' do
