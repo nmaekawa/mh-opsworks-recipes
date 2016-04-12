@@ -377,8 +377,9 @@ module MhOpsworksRecipes
         cadash_secret_key: 'super_secret_really',
         log_config: 'logging.yaml',
         memcached_port: '8008'
-      }
-    )
+        }
+      )
+    end
   end
 
   def get_ca_app_info
