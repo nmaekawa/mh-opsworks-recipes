@@ -804,7 +804,6 @@ module MhOpsworksRecipes
         webapp_git_revision: 'master'
         }
       )
-    end
   end
 
 end
