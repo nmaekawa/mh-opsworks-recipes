@@ -4,7 +4,7 @@
 [
   '/home/web/sites',
   '/home/web/sock',
-  '/home/wek/logs'
+  '/home/web/logs'
 ].each do |webapps_directory|
   directory webapps_directory do
     owner 'web'
