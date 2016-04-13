@@ -28,6 +28,8 @@ export LDAP_BIND_DN="#{ca_webapp_info[:ldap_bind_dn]}"
 export LDAP_BIND_PASSWD="#{ca_webapp_info[:ldap_bind_passwd]}"
 export LOG_CONFIG="#{ca_webapp_info[:log_config]}"
 export FLASK_SECRET="#{ca_webapp_info[:webapp_secret_key]}"
+export DATABASE_USR="#{ca_webapp_info[:webapp_database_usr]}"
+export DATABASE_PWD="#{ca_webapp_info[:webapp_database_pwd]}"
 |
   mode "600"
 end
