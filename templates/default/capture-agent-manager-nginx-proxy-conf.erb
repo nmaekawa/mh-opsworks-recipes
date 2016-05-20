@@ -26,8 +26,8 @@ server {
     # ask gunicorn to redirect to https
     proxy_set_header X-Forwarded-SSL on;
 
-    #access_log /home/web/logs/nginx_access_log;
-    #error_log /home/web/logs/nginx_error_log;
+    #access_log /home/capture_agent_manager/logs/nginx_access_log;
+    #error_log /home/capture_agent_manager/logs/nginx_error_log;
 
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
@@ -35,11 +35,11 @@ server {
 
     location / {
         proxy_buffering off;
-        proxy_pass http://unix:/home/web/sock/<%= @ca_webapp %>.sock;
+        proxy_pass http://unix:/home/capture_agent_manager/sock/<%= @capture_agent_manager %>.sock;
     }
 
     location /static {
-        alias /home/web/sites/<%= @ca_webapp %>/<%= @ca_webapp %>/static;
+        alias /home/capture_agent_manager/sites/<%= @capture_agent_manager %>/<%= @capture_agent_manager %>/static;
         autoindex on;
     }
 }

@@ -383,9 +383,9 @@ module MhOpsworksRecipes
       end
     end
 
-    def get_ca_webapp_info
+    def get_capture_agent_manager_info
       node.fetch(
-        :ca_webapp, {
+        :capture_agent_manager, {
           ca_stats_user: 'user',
           ca_stats_passwd: 'passwd',
           ca_stats_json_url: 'http://ca-status.dceapp.net/ca_stats/ca_stats.json',
@@ -395,11 +395,11 @@ module MhOpsworksRecipes
           ldap_base_search: 'dc=dce,dc=harvard,dc=edu',
           ldap_bind_dn: 'cn=user,dc=dce,dc=harvard,dc=edu',
           ldap_bind_passwd: 'passwd',
-          cadash_secret_key: 'super_secret_really',
+          capture_agent_manager_secret_key: 'super_secret_really',
           log_config: 'logging.yaml',
           memcached_port: '8008',
-          webapp_git_repo: 'https://github.com/harvard-dce/webapp',
-          webapp_git_revision: 'master'
+          capture_agent_manager_git_repo: 'https://github.com/harvard-dce/capture_agent_manager',
+          capture_agent_manager_git_revision: 'master'
           }
         )
     end

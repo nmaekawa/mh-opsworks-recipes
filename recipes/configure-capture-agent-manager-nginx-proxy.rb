@@ -1,10 +1,11 @@
 # Cookbook Name:: mh-opsworks-recipes
-# Recipe:: configure-ca-webapp-nginx-proxy
+# Recipe:: configure-capture-agent-manager-nginx-proxy
 
 include_recipe "mh-opsworks-recipes::update-package-repo"
 ::Chef::Recipe.send(:include, MhOpsworksRecipes::RecipeHelpers)
-ca_webapp_info = node.fetch(:ca_webapp, {})
-app_name = ca_webapp_info.fetch(:ca_webapp_name, "webapp")
+
+capture_agent_manager_info = node.fetch(:capture_agent_manager, {})
+app_name = capture_agent_manager_info.fetch(:capture_agent_manager_name, "capture_agent_manager")
 
 install_package("nginx")
 
@@ -17,10 +18,10 @@ if cert_defined(ssl_info)
 end
 
 template %Q|/etc/nginx/sites-enabled/default| do
-  source "ca-webapp-nginx-proxy-conf.erb"
+  source "capture-agent-manager-nginx-proxy-conf.erb"
   manage_symlink_source true
   variables({
-    ca_webapp: app_name
+    capture_agent_manager: app_name
   })
 end
 
