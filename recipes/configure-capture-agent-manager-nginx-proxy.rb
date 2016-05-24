@@ -11,7 +11,7 @@ install_package("nginx")
 
 install_nginx_logrotate_customizations
 
-ssl_info = node.fetch(:ssl, get_dummy_cert)
+ssl_info = node.fetch(:ca_ssl, get_dummy_cert)
 if cert_defined(ssl_info)
   create_ssl_cert(ssl_info)
   certificate_exists = true
