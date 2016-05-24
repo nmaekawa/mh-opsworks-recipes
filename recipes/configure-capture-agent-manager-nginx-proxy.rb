@@ -17,9 +17,18 @@ if cert_defined(ssl_info)
   certificate_exists = true
 end
 
+directory '/etc/nginx/proxy-includes' do
+  owner 'root'
+  group 'root'
+end
+
 template %Q|/etc/nginx/sites-enabled/default| do
-  source "capture-agent-manager-nginx-proxy-conf.erb"
+  source "nginx-proxy-ssl-only.erb"
   manage_symlink_source true
+end
+
+template %Q|/etc/nginx/proxy-includes/capture-agent-manager.conf| do
+  source "nginx-proxy-capture-agent-manager.conf.erb"
   variables({
     capture_agent_manager: app_name
   })
